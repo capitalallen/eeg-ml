@@ -36,7 +36,6 @@ def get_y_train_test(index,data):
 
 def run_train(folder,type):
     # load data 
-    folder = '../data/neg_vs_net/male_0/'
     get_data = lcd.Load_data() 
     x,y = get_data.get_all_data(folder)
     cv = x.size
