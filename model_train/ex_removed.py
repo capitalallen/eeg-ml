@@ -34,10 +34,11 @@ def get_y_train_test(index,data):
             train = np.concatenate((train,data[i]),axis=0)
     return train,test
 
-def run_train(folder,type):
+def run_train(folder,type,remove_type):
     # load data 
-    folder = '../data/neg_vs_net/male_0/'
     get_data = lcd.Load_data() 
+    if remove_type=="m":
+        
     x,y = get_data.get_all_data(folder)
     cv = x.size
     # init class

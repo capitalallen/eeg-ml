@@ -5,7 +5,7 @@ def store_one_cv(name,cv,coefs,y_train,y_train_pred,y_test,y_test_pred):
         "mongodb+srv://capitalallen:allen123@cluster0.bc8gt.mongodb.net/<dbname>?retryWrites=true&w=majority")
     db = client.get_database('eeg')
     records = db.results
-    id = records.find_one({'name':name}).get("_id")
+    id = records.find_one({'name':name})
 
     data = {}
     data[cv] = {}
@@ -21,4 +21,5 @@ def store_one_cv(name,cv,coefs,y_train,y_train_pred,y_test,y_test_pred):
         data['name'] = name
         records.insert_one(data)
     else:
+        id = id.get("_id")
         records.update({"_id":id},{"$set":data})
