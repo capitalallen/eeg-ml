@@ -65,11 +65,12 @@ def main():
     gender = ["male",'female']
     sec = ["_0/","_1/"]
     model_type = ['rf','boost']
-    folder += "neg_vs_net/"
-    for i in gender:
-        for j in sec:
-            for m in model_type:
-                curr_folder = folder + i+j
-                run_train(curr_folder,m,i)
+    folder += "neg_and_net/"
+    for n in net_and_neg:
+        for i in gender:
+            for j in sec:
+                for m in model_type:
+                    curr_folder = folder + n+i+j
+                    run_train(curr_folder,m,i)
 if __name__ == "__main__":
     main()

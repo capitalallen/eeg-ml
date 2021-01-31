@@ -10,8 +10,9 @@ class Load_data:
         for i in range(len(file_list)):
             ordered_list.append(folder +str(i)+".csv")
         return ordered_list
-    def remove_person(self,index,file_list):
-        del file_list[index]
+    def remove_person(self,indexs,file_list):
+        for i in indexs:
+            del file_list[i]
         return file_list
     def convert_csv_np(self,file_path):
         return np.genfromtxt(file_path, delimiter=',')
@@ -30,9 +31,9 @@ class Load_data:
             y.append(temp_y)
         return np.asarray(x),np.asarray(y)
 
-    def get_perfect_data(self,folder,index):
+    def get_perfect_data(self,folder,indexs):
         file_list = self.files_in_dir(folder)
-        file_list = self.remove_person(index,folder)
+        file_list = self.remove_person(indexs,folder)
         x,y = [],[]
         for i in file_list:
             data = self.convert_csv_np(i)
