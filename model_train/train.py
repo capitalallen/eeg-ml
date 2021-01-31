@@ -106,5 +106,4 @@ class Train:
             model = self.model_training(type,x_train,y_train)
         coefs = self.get_coefs(model)
         y_train_pred,y_test_pred = self.get_predicts(x_train,x_test,model)
-        self.name+=type
-        sr.store_one_cv(self.name,str(cv_num),coefs,y_train,y_train_pred,y_test,y_test_pred)
+        sr.store_one_cv(self.name+type,str(cv_num),coefs,y_train,y_train_pred,y_test,y_test_pred)
