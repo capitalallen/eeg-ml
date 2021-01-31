@@ -33,7 +33,7 @@ class Load_data:
 
     def get_perfect_data(self,folder,indexs):
         file_list = self.files_in_dir(folder)
-        file_list = self.remove_person(indexs,folder)
+        file_list = self.remove_person(indexs,file_list)
         x,y = [],[]
         for i in file_list:
             data = self.convert_csv_np(i)
