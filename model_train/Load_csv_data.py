@@ -11,6 +11,7 @@ class Load_data:
             ordered_list.append(folder +str(i)+".csv")
         return ordered_list
     def remove_person(self,indexs,file_list):
+        
         for i in indexs:
             del file_list[i]
         return file_list
