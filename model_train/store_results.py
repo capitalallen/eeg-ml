@@ -2,7 +2,7 @@ import pymongo
 
 def store_one_cv(name,cv,coefs,y_train,y_train_pred,y_test,y_test_pred):
     client = pymongo.MongoClient(
-        "mongodb+srv://capitalallen:allen123@cluster0.bc8gt.mongodb.net/<dbname>?retryWrites=true&w=majority")
+        )
     db = client.get_database('eeg')
     records = db.results
     id = records.find_one({'name':name})
