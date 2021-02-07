@@ -99,20 +99,20 @@ class Train:
         y_test_pred = model.predict(x_test)
         return y_train_pred,y_test_pred
     
-    def ex_train(self,type,cv_num,x_train,y_train,x_test,y_test):
+    def ex_train(self,type,cv_num,x_train,y_train,x_test,y_test,record_name="results"):
         if type =="rf":
             model = self.model_training(type,x_train,y_train)
         else:
             model = self.model_training(type,x_train,y_train)
         coefs = self.get_coefs(model)
         y_train_pred,y_test_pred = self.get_predicts(x_train,x_test,model)
-        sr.store_one_cv(self.name+type,str(cv_num),coefs,y_train,y_train_pred,y_test,y_test_pred)
+        sr.store_one_cv(self.name+type,str(cv_num),coefs,y_train,y_train_pred,y_test,y_test_pred,record_name)
 
-    def ex_train_removed(self,type,cv_num,x_train,y_train,x_test,y_test):
+    def ex_train_removed(self,type,cv_num,x_train,y_train,x_test,y_test,record_name="results"):
         if type =="rf":
             model = self.model_training(type,x_train,y_train)
         else:
             model = self.model_training(type,x_train,y_train)
         coefs = self.get_coefs(model)
         y_train_pred,y_test_pred = self.get_predicts(x_train,x_test,model)
-        sr.store_one_cv(self.name+type+"/removed",str(cv_num),coefs,y_train,y_train_pred,y_test,y_test_pred)
+        sr.store_one_cv(self.name+type+"/removed",str(cv_num),coefs,y_train,y_train_pred,y_test,y_test_pred,record_name)

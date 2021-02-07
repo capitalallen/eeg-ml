@@ -1,10 +1,10 @@
 import pymongo
 
-def store_one_cv(name,cv,coefs,y_train,y_train_pred,y_test,y_test_pred):
+def store_one_cv(name,cv,coefs,y_train,y_train_pred,y_test,y_test_pred,type="results"):
     client = pymongo.MongoClient(
         )
     db = client.get_database('eeg')
-    records = db.results
+    records = db[type]
     id = records.find_one({'name':name})
 
     data = {}

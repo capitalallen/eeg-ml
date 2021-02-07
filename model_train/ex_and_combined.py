@@ -50,7 +50,33 @@ def run_train(folder,type):
         x_train,x_test = get_x_train_test(i,x)
         y_train,y_test = get_y_train_test(i,y)
         # type,cv_num,x_train,y_train,x_test,y_test
-        train_model.ex_train(type,str(i),x_train,y_train,x_test,y_test)
+        train_model.ex_train(type,str(i),x_train,y_train,x_test,y_test,"neg_and_net")
+
+def run_train_removed(folder,type,remove_type):
+    # load data 
+    get_data = lcd.Load_data() 
+    indexs = []
+    if remove_type=="male":
+        indexs = [11,18]
+    elif remove_type=="female":
+        indexs = [13]
+    elif remove_type=="mf":
+        indexs = [11,18,31]
+    x,y = get_data.get_all_data(folder,indexs)
+    cv = x.size
+    # init class
+    train_model = train.Train(folder)
+    
+    # perform grid search
+    
+    train_model.perform_grid_search(get_x_all(x),get_y_all(y),type)
+    for i in range(cv):
+        # type,cv_num,x_train,y_train,x_test,y_test
+        x_train,x_test = get_x_train_test(i,x)
+        y_train,y_test = get_y_train_test(i,y)
+        # type,cv_num,x_train,y_train,x_test,y_test
+        train_model.ex_train_removed(type,str(i),x_train,y_train,x_test,y_test,"neg_and_net")
+
 def main():
     folder = "../data/"
     # exp_type = ['neg_vs_net/','neg_and_net/','neg_to_net/']
@@ -62,15 +88,16 @@ def main():
     # folder += "neg_and_net/"
     # for net and neg 
     net_and_neg = ['neg/','net/']
-    gender = ["male",'female']
-    sec = ["_0/","_1/"]
-    model_type = ['rf','boost']
+    gender = ["combined"] # "combined"
+    sec = ["_0/"]
+    model_type = ['rf']
     folder += "neg_and_net/"
     for n in net_and_neg:
         for i in gender:
             for j in sec:
                 for m in model_type:
                     curr_folder = folder + n+i+j
-                    run_train(curr_folder,m)
+                    # run_train(curr_folder,m)
+                    run_train_removed(curr_folder,m,"mf")
 if __name__ == "__main__":
     main()
