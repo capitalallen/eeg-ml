@@ -12,7 +12,6 @@ class Load_data:
             if i in indexs:
                 continue
             ordered_list.append(folder +str(i)+".csv")
-        print(ordered_list)
         return ordered_list
     # def remove_person(self,indexs,file_list):
         
