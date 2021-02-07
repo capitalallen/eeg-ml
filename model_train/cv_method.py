@@ -2,11 +2,11 @@ import Load_csv_data as lcd
 import train 
 import numpy as np
 
-def get_x_all(data):
+def get_x_train_test(data,index):
     x = data[0]
-    for i in range(1,data.size):
-        x = np.concatenate((x,data[i]),axis=0)
-    return x
+    x_test = data[index]
+    x_train = np.delete(data,index,axis=0)
+    return x_train,x_test
 
 def get_y_all(data):
     y = data[0]
@@ -44,9 +44,18 @@ def with_in(folder,type):
     # train_model.perform_grid_search(get_x_all(x),get_y_all(y),type)
     # perform grid search
     for i in range(cv_size):
+        accs = []
         for j in range(x[i].shape[0]):
-            # 
-        print(x[i].shape)
+            # define train and test set
+            x_train,x_test = get_x_train_test(x[i],j)
+            print(x_train.shape)
+            print(x_test.shape)
+            return
+            # train 
+            # get test set accuracy 
+            # append to accs
+        # accuracy average 
+        # append to json file 
     # train_model.perform_grid_search(get_x_all(x),get_y_all(y),type)
     # for i in range(cv):
     #     # type,cv_num,x_train,y_train,x_test,y_test
