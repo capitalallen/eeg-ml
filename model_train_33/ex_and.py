@@ -45,7 +45,7 @@ def run_train(folder,type,remove_type=None):
     elif remove_type=="mf":
         indexs = [11,18,31]
     x,y = get_data.get_all_data(folder,indexs)
-    cv = x.size
+    cv = x.shape[0]
     # init class
     train_model = train.Train(folder)
     

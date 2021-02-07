@@ -87,12 +87,12 @@ def run_train_removed(folder,type,remove_type):
     elif remove_type=="mf":
         indexs = [11,18,31]
     x,y = get_data.get_all_data(folder,indexs)
-    cv_size = x.size
+    cv_size = x.shape[0]
     # init class
     train_model = train.Train(folder)
     train_model.perform_grid_search(get_x_all(x),get_y_all(y),type)
     accs = []
-    for i in range(cv_size):
+    for i in range(30,cv_size):
         y_tests, y_preds = [],[]
         for j in range(x[i].shape[0]):
             # define train and test set

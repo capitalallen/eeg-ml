@@ -45,7 +45,7 @@ def run_train(folder,type,remove_type=None):
     elif remove_type=="mf":
         indexs = [11,18,31]
     x,y = get_data.get_all_data(folder,indexs)
-    cv = x.size
+    cv = x.shape[0]
     # init class
     train_model = train.Train(folder)
     
@@ -53,6 +53,7 @@ def run_train(folder,type,remove_type=None):
     
     train_model.perform_grid_search(get_x_all(x),get_y_all(y),type)
     for i in range(cv):
+        print("cv: ",i)
         # type,cv_num,x_train,y_train,x_test,y_test
         x_train,x_test = get_x_train_test(i,x)
         y_train,y_test = get_y_train_test(i,y)
@@ -77,6 +78,7 @@ def main():
         for j in sec:
             for m in model_type:
                 curr_folder = folder+i+j
+                print(curr_folder)
                 run_train(curr_folder,m)
 if __name__ == "__main__":
     main()
