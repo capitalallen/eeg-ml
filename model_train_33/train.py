@@ -98,7 +98,7 @@ class Train:
     def get_predicts(self,x_train,x_test,model):
         # print(x_train.shape)
         # print(x_test.shape)
-        if len(x_test.shape)==1:
+        if x_test and len(x_test.shape)==1:
             x_test = np.reshape(x_test,(-1,1))
             x_test = np.einsum("kl->lk",x_test)
         y_train_pred = model.predict(x_train)
