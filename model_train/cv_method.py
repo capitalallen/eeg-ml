@@ -7,13 +7,13 @@ import store_to_json as stj
 def get_x_all(data):
     x = data[0]
     # data.size
-    for i in range(1,2):
+    for i in range(1,data.size):
         x = np.concatenate((x,data[i]),axis=0)
     return x
 
 def get_y_all(data):
     y = data[0]
-    for i in range(1,2):
+    for i in range(1,data.size):
         y = np.concatenate((y,data[i]),axis=0)
     return y  
 def get_x_train_test(data,index):
