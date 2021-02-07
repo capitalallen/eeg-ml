@@ -15,7 +15,7 @@ def main():
     #         # temp.store_mf(sec=i,net_or_neg=j)      
 
     temp = ntn.Neg_to_net()
-    file = "../data/33/"
+    file = "../data/42/"
     i = 0
     temp.store_male(file,sec=i)
     temp.store_female(file,sec=i)

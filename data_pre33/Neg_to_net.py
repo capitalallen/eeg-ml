@@ -17,7 +17,6 @@ class Neg_to_net:
         
         folder += "male" +"_"+str(sec)+"/"
         self.create_folder(folder)
-        print(self.data.shape)
         cmc.store_to_csv(folder,self.data)
 
     def store_female(self,folder = "../data/",sec=0):
@@ -57,10 +56,15 @@ class Neg_to_net:
         netx,negx = None,None 
         netx,nety = cmc.get_difference(raw_data,self.net_position,"net")
         negx,negy = cmc.get_difference(raw_data,self.neg_position,"neg")
-
+        # for i in range(netx.shape[0]):
+        #     print(netx[i].shape)
+        # print(netx.shape)
+        # print(nety.shape)
+        # return 
         # choose freqency 
         if sec == 0:
             netx = cmc.choose_freq(netx,None,0)
+
             negx = cmc.choose_freq(negx,None,0)
         elif sec == 1:
             netx = cmc.choose_freq(netx,None,1)
@@ -68,12 +72,11 @@ class Neg_to_net:
         else:
             raise Exception("second not defined")
         # squeeze_feature
+
         netx = cmc.squeeze_feature_size(netx)
         negx = cmc.squeeze_feature_size(negx)
-
         # combine_net_neg 
-        x,y = cmc.combine_net_neg(netx,nety,negx,negy)
-        
+        x,y = cmc.combine_net_neg(netx,nety,negx,negy)   
         # add label 
         self.data = cmc.add_labels(x,y)
     

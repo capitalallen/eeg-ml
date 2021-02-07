@@ -70,7 +70,7 @@ def get_difference(data,position,type=None):
     if type == 'neg':
         label_type = 0
     elif type == 'net':
-        label_tpye = 1
+        label_type = 1
     else:
         print("Wrong type - get_pos_or_neg()")
         return 
@@ -89,19 +89,16 @@ def get_difference(data,position,type=None):
 def choose_freq(data=None,freq = None, sec=None):
     if freq:
         data = np.delete(data,freq,axis=3)
-    is_4d = False 
     arr = []
-    if len(data.shape)==5:
-        is_4d = True
     if sec == 0:
         for i in range(data.shape[0]):
             arr.append(np.delete(data[i], 1, axis=3))
             # data[i] = np.delete(data[i], 1, axis=3)
         arr = np.array(arr)
-        return data
+        return arr
     elif sec == 1:
         for i in range(data.shape[0]):
-            data[i] = np.delete(data[i], 0, axis=3) if not is_4d else np.delete(data[i], 0, axis=3)
+            data[i] = np.delete(data[i], 0, axis=3)
         return data
     else:
         print('sec not specified')
@@ -127,8 +124,8 @@ def squeeze_feature_size(data):
 def combine_net_neg(netX,netY,negX,negY,type=True):
     # iterate through each person concat x and y respectively
     if type:
-        netX =  np.concatenate((netX,negX),axis=0)
-        netY = np.concatenate((netY,negY),axis=0)
+        netX =  np.concatenate((netX,negX),axis=1)
+        netY = np.concatenate((netY,negY),axis=1)
     else:
         for i in range(netX.size):
             netX[i] = np.concatenate((netX[i],negX[i]),axis=0)

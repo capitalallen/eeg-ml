@@ -57,7 +57,6 @@ class Neg_to_net:
         netx,negx = None,None 
         netx,nety = cmc.get_difference(raw_data,self.net_position,"net")
         negx,negy = cmc.get_difference(raw_data,self.neg_position,"neg")
-
         # choose freqency 
         if sec == 0:
             netx = cmc.choose_freq(netx,None,0)
@@ -73,9 +72,13 @@ class Neg_to_net:
 
         # combine_net_neg 
         x,y = cmc.combine_net_neg(netx,nety,negx,negy)
-        
+        # # print(negy[0])
+        # # print(nety[0])
+        # print(y[0])
+        # return        
         # add label 
         self.data = cmc.add_labels(x,y)
-    
+        # print(self.data[0])
+
     def test(self):
         print("success")

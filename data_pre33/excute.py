@@ -20,6 +20,10 @@ def main():
     temp.store_male(file,sec=i)
     temp.store_female(file,sec=i)
     temp.store_mf(file,sec=i)      
+#    for j in ["net",'neg']:
+#         temp.store_male(file,sec=i,net_or_neg=j)
+#         temp.store_female(file,sec=i,net_or_neg=j)
+#         temp.store_mf(file,sec=i,net_or_neg=j)       
 if __name__ == "__main__":
     main()
 
