@@ -4,20 +4,20 @@ import numpy as np
 
 def get_x_all(data):
     x = data[0]
-    for i in range(1,data.size):
+    for i in range(1,data.shape[0]):
         x = np.concatenate((x,data[i]),axis=0)
     return x
 
 def get_y_all(data):
     y = data[0]
-    for i in range(1,data.size):
+    for i in range(1,data.shape[0]):
         y = np.concatenate((y,data[i]),axis=0)
     return y  
 
 def get_x_train_test(index,data):
     train,test = None,None
     train = data[0] if index !=0 else data[1]
-    for i in range(data.size):
+    for i in range(data.shape[0]):
         if i == index:
             test = data[i]
         else:
@@ -27,7 +27,7 @@ def get_x_train_test(index,data):
 def get_y_train_test(index,data):
     train,test = None,None
     train = data[0] if index !=0 else data[1]
-    for i in range(data.size):
+    for i in range(data.shape[0]):
         if i == index:
             test = data[i]
         else:
