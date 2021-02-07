@@ -110,7 +110,7 @@ def run_train_removed(folder,type,remove_type):
         avg = sum(accs)/len(accs)
         stj.update_results(folder+"removed"+str(i),[avg,accs])
 
-root = "../data/42/"
+root_file = "../data/42/"
 exp_type = ['neg_vs_net/','neg_and_net/','neg_to_net/']
 # for net and neg 
 net_and_neg = ['neg/','net/']
@@ -119,7 +119,7 @@ sec = ["_0/"]
 model_type = ['rf']
 # folder += "neg_and_net/"
 for e in exp_type:
-    folder = roots+e
+    folder = root_file+e
     for n in net_and_neg:
         for i in gender:
             for j in sec:
