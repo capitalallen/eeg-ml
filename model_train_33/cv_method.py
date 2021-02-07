@@ -114,7 +114,7 @@ root_file = "../data/33/"
 exp_type = ['neg_to_net/'] # 'neg_vs_net/',
 # for net and neg 
 net_and_neg = ['neg/','net/']
-gender = ["combined"]
+gender = ["mf"]
 sec = ["_0/"]
 model_type = ['rf']
 # folder = root_file+ "neg_and_net/"
