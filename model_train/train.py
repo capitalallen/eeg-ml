@@ -2,6 +2,7 @@ import numpy as np
 from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
+from sklearn.metrics import accuracy_score
 import store_results as sr 
 class Train:
     def __init__(self,name):
@@ -95,6 +96,11 @@ class Train:
         return model.feature_importances_
 
     def get_predicts(self,x_train,x_test,model):
+        # print(x_train.shape)
+        # print(x_test.shape)
+        if len(x_test.shape)==1:
+            x_test = np.reshape(x_test,(-1,1))
+            x_test = np.einsum("kl->lk",x_test)
         y_train_pred = model.predict(x_train)
         y_test_pred = model.predict(x_test)
         return y_train_pred,y_test_pred
@@ -107,7 +113,15 @@ class Train:
         coefs = self.get_coefs(model)
         y_train_pred,y_test_pred = self.get_predicts(x_train,x_test,model)
         sr.store_one_cv(self.name+type,str(cv_num),coefs,y_train,y_train_pred,y_test,y_test_pred,record_name)
-
+    
+    def ex_train_within(self,type,x_train,y_train,x_test,y_test):
+        if type =="rf":
+            model = self.model_training(type,x_train,y_train)
+        else:
+            model = self.model_training(type,x_train,y_train)
+        coefs = self.get_coefs(model)
+        y_train_pred,y_test_pred = self.get_predicts(x_train,x_test,model)
+        return (y_test,y_test_pred)
     def ex_train_removed(self,type,cv_num,x_train,y_train,x_test,y_test,record_name="results"):
         if type =="rf":
             model = self.model_training(type,x_train,y_train)

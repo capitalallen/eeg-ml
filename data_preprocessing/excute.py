@@ -15,10 +15,11 @@ def main():
     #         # temp.store_mf(sec=i,net_or_neg=j)      
 
     temp = ntn.Neg_to_net()
-    for i in [0,1]:
-        temp.store_male(sec=i)
-        temp.store_female(sec=i)
-        temp.store_mf(sec=i)      
+    file = "../data/33/"
+    i = 0
+    temp.store_male(file,sec=i)
+    temp.store_female(file,sec=i)
+    temp.store_mf(file,sec=i)      
 if __name__ == "__main__":
     main()
 
