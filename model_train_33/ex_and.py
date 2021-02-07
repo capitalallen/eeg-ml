@@ -4,13 +4,13 @@ import numpy as np
 
 def get_x_all(data):
     x = data[0]
-    for i in range(1,data.shape[0]):
+    for i in range(1,3): # data.shape[0]
         x = np.concatenate((x,data[i]),axis=0)
     return x
 
 def get_y_all(data):
     y = data[0]
-    for i in range(1,data.shape[0]):
+    for i in range(1,3): # data.shape[0]
         y = np.concatenate((y,data[i]),axis=0)
     return y  
 
@@ -52,9 +52,11 @@ def run_train(folder,type,remove_type=None):
     # perform grid search
     train_model.perform_grid_search(get_x_all(x),get_y_all(y),type)
     for i in range(cv):
+        print("cv:",i)
         # type,cv_num,x_train,y_train,x_test,y_test
         x_train,x_test = get_x_train_test(i,x)
         y_train,y_test = get_y_train_test(i,y)
+        # return
         # type,cv_num,x_train,y_train,x_test,y_test
         train_model.ex_train(type,str(i),x_train,y_train,x_test,y_test,"33")
 def main():

@@ -98,6 +98,8 @@ class Train:
     def get_predicts(self,x_train,x_test,model):
         # print(x_train.shape)
         # print(x_test.shape)
+        print(x_train.shape)
+        print(x_test.shape)
         y_train_pred = model.predict(x_train)
         y_test_pred = model.predict(x_test)
         return y_train_pred,y_test_pred

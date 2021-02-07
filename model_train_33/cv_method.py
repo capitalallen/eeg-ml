@@ -1,6 +1,6 @@
 from numpy.lib.polynomial import roots
 import Load_csv_data as lcd 
-import train 
+import trainwithin as train  
 from sklearn.metrics import accuracy_score
 import numpy as np
 import store_to_json as stj 
@@ -111,7 +111,7 @@ def run_train_removed(folder,type,remove_type):
         stj.update_results(folder+"removed"+str(i),[avg,accs])
 
 root_file = "../data/33/"
-exp_type = ['neg_vs_net/','neg_to_net/']
+exp_type = ['neg_to_net/'] # 'neg_vs_net/',
 # for net and neg 
 net_and_neg = ['neg/','net/']
 gender = ["combined"]
