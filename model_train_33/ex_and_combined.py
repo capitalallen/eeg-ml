@@ -43,7 +43,7 @@ def run_train(folder,type):
     train_model = train.Train(folder)
     
     # perform grid search
-    
+        
     train_model.perform_grid_search(get_x_all(x),get_y_all(y),type)
     for i in range(cv):
         # type,cv_num,x_train,y_train,x_test,y_test
