@@ -6,8 +6,8 @@ from sklearn.metrics import accuracy_score
 import store_results as sr 
 class Train:
     def __init__(self,name):
-        self.rf_parameters = {'max_depth': [2, 5, 10,None],
-                                'n_estimators': [100, 256, 512],
+        self.rf_parameters = {'max_depth': [5, 10,None],
+                                'n_estimators': [100, 256],
                                 'min_impurity_decrease':[0.025,0.0]}
         self.boost_parameters = {'max_depth': [3, 5, 7],
                                 'n_estimators': [100, 256],
