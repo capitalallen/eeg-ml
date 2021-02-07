@@ -52,7 +52,7 @@ def with_in(folder,type="rf"):
     # load data 
     get_data = lcd.Load_data() 
     x,y = get_data.get_all_data(folder)
-    cv_size = x.size
+    cv_size = x.shape[0]
     # init class
     train_model = train.Train(folder)
     train_model.perform_grid_search(get_x_all(x),get_y_all(y),type)
@@ -117,15 +117,15 @@ net_and_neg = ['neg/','net/']
 gender = ["combined"]
 sec = ["_0/"]
 model_type = ['rf']
-folder = root_file+ "neg_and_net/"
-for n in net_and_neg:
-    for i in gender:
-        for j in sec:
-            for m in model_type:
-                curr_folder = folder + n+i+j
-                # run_train(curr_folder,m)
-                with_in(curr_folder,m)
-                run_train_removed(curr_folder,m,"mf")
+# folder = root_file+ "neg_and_net/"
+# for n in net_and_neg:
+#     for i in gender:
+#         for j in sec:
+#             for m in model_type:
+#                 curr_folder = folder + n+i+j
+#                 # run_train(curr_folder,m)
+#                 with_in(curr_folder,m)
+#                 run_train_removed(curr_folder,m,"mf")
 
 for e in exp_type:
     folder = root_file+e+gender[0]+sec[0]
