@@ -98,7 +98,7 @@ def main():
                 for m in model_type:
                     curr_folder = folder + n+i+j
                     # run_train(curr_folder,m)
-                    run_train(curr_folder,m,"mf")
+                    run_train(curr_folder,m)
                     run_train_removed(curr_folder,m,"mf")
 if __name__ == "__main__":
     main()
