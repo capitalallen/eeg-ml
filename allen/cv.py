@@ -22,7 +22,7 @@ class Train:
     model = RandomForestClassifier(n_estimators=50)
 
     def model_train(self,x_train,x_test,y_train,y_test,model):
-        model.fit(x_train,y_train)
+        model.fit(x_train,y_train.ravel())
         y_pred = model.predict(x_test)
         return y_test, y_pred
         
@@ -58,7 +58,6 @@ class Train:
         print(new_x.shape)
         return new_x,new_y
     def leav_one_train(self):
-        avg_accuracy=[]
         all_accuracy=[]
         for d in range(self.x.shape[0]):
             print("leave one out # person:",d)

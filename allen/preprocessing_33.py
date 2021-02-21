@@ -70,12 +70,13 @@ class Data_prepare:
     # return x 
     def squeeze_feature_size(self,data):
         print(data.shape)
+        new_data = []
         for d in range(data.shape[0]):
     #         for i in range(df[d].shape[0]):
             size = data[d].shape
             print(size)
-            data[d] = data[d].reshape(size[0], size[1]*size[2]*size[3])
-        return data
+            new_data.append(data[d].reshape(size[0], size[1]*size[2]*size[3]))
+        return np.array(new_data)
 
     def squeeze_feature_size_33(self,data):
         new_data = []
@@ -110,10 +111,12 @@ class Data_prepare:
 
     # combine net and neg 
     def combine_net_neg(self,netX,netY,negX,negY):
+        newX = []
+        newY = []
         for i in range(netX.shape[0]):
-            netX[i] = np.concatenate((netX[i],negX[i]),axis=0)
-            netY[i] = np.concatenate((netY[i],negY[i]),axis=0)
-        return netX,netY
+            newX.append(np.concatenate((netX[i],negX[i]),axis=0))
+            newY.append(np.concatenate((netY[i],negY[i]),axis=0))
+        return np.array(newX),np.array(newY)
     # for stress classification 
     def combine_cases(sef,data):
         new_df = []
@@ -140,9 +143,9 @@ class Data_prepare:
     # input type- l,m,h ; x;y 
     # output x,y 
     def choose_x_y_stress(self,type,x,y):
-        l = [1, 6, 9, 10, 12, 16, 19, 23, 26, 29, 31, 32, 33, 39] 
-        m = [3, 5, 7, 11, 15, 18, 24, 28, 30, 34, 37] 
-        h = [0, 2, 4, 8, 13, 14, 17, 20, 21, 22, 25, 27, 35, 36, 38]
+        l = [1, 6, 9,16, 19, 23, 26, 29, 31, 32, 33] 
+        m = [3, 5, 7, 15, 24, 28, 30, 34, 37] 
+        h = [0, 2, 4, 8, 14, 17, 20, 21, 22, 25, 27, 35, 38]
         chosen = None 
         if type == "l":
             chosen = l 
@@ -224,12 +227,12 @@ def ex_preprocessing_33(type=None,index=None):
         return dp.combine_net_neg(pos_sequeezed,pos_labels,neg_sequeezed,neg_labels)
 
 
-def ex_preprocessing_stress(type = None,stress_level=None, index=[40,41]):
+def ex_preprocessing_stress_33(type = None,stress_level=None, index=[40,41]):
     dp = Data_prepare() 
     pos = [[0,3],[0,2],[0,1],[0,0]]
     neg = [[1,3],[1,2],[1,1],[1,0]]
     if type == 0:
-        index=[40,41]
+        # index=[40,41]
         df = dp.combine_male_female()
         df = dp.remove_person(df,index)
         pos_df = dp.get_pos_or_neg(df,pos)

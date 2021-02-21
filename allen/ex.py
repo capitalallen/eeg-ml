@@ -1,5 +1,6 @@
 from types import prepare_class
 from preprocessing import ex_preprocessing, ex_preprocessing_stress
+from preprocessing_33 import  ex_preprocessing_33, ex_preprocessing_stress_33
 from cv import Train
 from store_results import write_to_json
 from multiprocessing import Process
@@ -16,6 +17,23 @@ def ex_within():
     all_acc,avg_acc = train.within_train()
     write_to_json(file+"within_without_bad.json",all_acc,avg_acc)
 
+def ex_leave_one_33():
+    file = "./results/"
+    x,y = ex_preprocessing_33(0)
+    train = Train(x,y)
+    all_acc= train.leav_one_train()
+    write_to_json(file+"leaveone_with_bad_33.json",all_acc,[])
+
+def ex_leave_one_stress_33():
+    file = "./results/"
+    train_type=''
+    stress_levels = ['l','m','h']
+    for j in stress_levels:
+        print(train_type,j)
+        x,y = ex_preprocessing_stress_33(0,j)
+        train = Train(x,y)
+        all_acc= train.leav_one_train()
+        write_to_json(file+"stress_leave_one_"+train_type+j+".json",all_acc,[])
 def ex_leave_one():
     file = "./results/"
     x,y = ex_preprocessing(0)
@@ -30,10 +48,16 @@ def ex_leave_one():
 
 def ex_stress_leavone():
     file = "./results/"
-    x,y = ex_preprocessing_stress(0)
-    train = Train(x,y)
-    all_acc= train.leav_one_train()
-    write_to_json(file+"stress_leaveone_with_bad.json",all_acc,[])
+    stress_levels = ['l','m','h']
+    removed_data_type = [0,1]
+    for i in removed_data_type:
+        train_type = "with_bad_" if i == 0 else "without_bad_"
+        for j in stress_levels:
+            print(train_type,j)
+            x,y = ex_preprocessing_stress(i,j)
+            train = Train(x,y)
+            all_acc= train.leav_one_train()
+            write_to_json(file+"leave_one_"+train_type+j+".json",all_acc,[])
 
     # remove bad data: boy: 4, 12; girls: 1,2
     # x,y = ex_preprocessing_stress(1)
@@ -52,5 +76,6 @@ if __name__ == "__main__":
     # p1.start()
     # p1.join()
 
-    ex_stress_leavone()   
-    
+    # ex_stress_leavone()  
+    # ex_leave_one_33()
+    ex_leave_one_stress_33()
