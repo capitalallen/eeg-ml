@@ -1,21 +1,40 @@
+from inspect import indentsize
 from types import prepare_class
-from preprocessing import ex_preprocessing, ex_preprocessing_stress
+from preprocessing import ex_preprocessing, ex_preprocessing_stress,ex_preprocessing_sepecial
 from preprocessing_33 import  ex_preprocessing_33, ex_preprocessing_stress_33
 from cv import Train
 from store_results import write_to_json
 from multiprocessing import Process
 def ex_within():
     # within, with bad data 
-    file = "./results/"
-    # x,y = ex_preprocessing(0)
-    # train = Train(x,y)
-    # all_acc,avg_acc = train.within_train()
-    # write_to_json(file+"within_with_bad.json",all_acc,avg_acc)
-    # remove bad data: boy: 4, 12; girls: 1,2
-    x,y = ex_preprocessing(1)
+    folder = "./results/"
+    x,y = ex_preprocessing(0)
+    file = "within_logistic_preprocessed.json"
     train = Train(x,y)
     all_acc,avg_acc = train.within_train()
-    write_to_json(file+"within_without_bad.json",all_acc,avg_acc)
+    write_to_json(folder+file,all_acc,avg_acc)
+    # remove bad data: boy: 4, 12; girls: 1,2
+    # x,y = ex_preprocessing(1)
+    # train = Train(x,y)
+    # all_acc,avg_acc = train.within_train()
+    # write_to_json(file+"within_without_bad.json",all_acc,avg_acc)
+
+# def ex_within():
+#     # within, with bad data 
+#     file = "./results/"
+#     index = [1,2,3]
+#     x,y = ex_preprocessing_sepecial(0)
+#     print(x.shape)
+#     return 
+    # train = Train(x,y)
+    # index = 0
+    # all_acc,avg_acc = train.within_train_special(4,index)
+    # write_to_json(file+"within_with_bad.json",all_acc,avg_acc)
+    # remove bad data: boy: 4, 12; girls: 1,2
+    # x,y = ex_preprocessing(1)
+    # train = Train(x,y)
+    # all_acc,avg_acc = train.within_train()
+    # write_to_json(file+"within_without_bad.json",all_acc,avg_acc)
 
 def ex_leave_one_33():
     file = "./results/"
@@ -48,10 +67,10 @@ def ex_leave_one():
 
 def ex_stress_leavone():
     file = "./results/"
-    stress_levels = ['l','m','h']
-    removed_data_type = [0,1]
+    stress_levels = ['l','m','h'] # ,'m','h'
+    removed_data_type = [1]
     for i in removed_data_type:
-        train_type = "with_bad_" if i == 0 else "without_bad_"
+        train_type = "raw_data_" # if i == 0 else "without_bad_"
         for j in stress_levels:
             print(train_type,j)
             x,y = ex_preprocessing_stress(i,j)
@@ -75,7 +94,9 @@ if __name__ == "__main__":
     # p1 = Process(target=ex_leave_one)
     # p1.start()
     # p1.join()
-
-    # ex_stress_leavone()  
+    # ex_within()
+    ex_within()
+    # ex_leave_one()
+    #ex_stress_leavone() 
     # ex_leave_one_33()
-    ex_leave_one_stress_33()
+    # ex_leave_one_stress_33()

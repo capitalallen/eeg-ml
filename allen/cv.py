@@ -1,13 +1,13 @@
 import numpy as np
 from sklearn.metrics import accuracy_score
 from sklearn.ensemble import RandomForestClassifier
-
+from sklearn.linear_model import LogisticRegression
 class Train:
     def __init__(self,x,y):
         self.x = x 
         self.y = y
-        self.model = RandomForestClassifier(n_estimators=150) 
-
+        # self.model = RandomForestClassifier(n_estimators=150) 
+        self.model = LogisticRegression()
     # get x train and test set for witin CV 
     def get_x_train_test(self,data,index):
         x_test = data[index]
@@ -19,7 +19,6 @@ class Train:
         y_test = data[index]
         y_train = np.delete(data,index,axis=0)
         return y_train.astype(int).ravel(),y_test.astype(int)
-    model = RandomForestClassifier(n_estimators=50)
 
     def model_train(self,x_train,x_test,y_train,y_test,model):
         model.fit(x_train,y_train.ravel())
@@ -78,3 +77,35 @@ class Train:
             print(accuracy)
             all_accuracy.append(accuracy)
         return all_accuracy
+
+    def delete_index(self,df,index):
+        for i in range(df.shape[0]):
+            new_data = []
+            for i in range(df[i].shape[0]):
+                print(df[i].shape)
+                df[i] = np.delete(df[i],index,axis=1)
+                new_data.append(df[i])
+        return np.array(new_data)
+
+    def within_train_special(self,chosen_x,index=None):
+        # with_in
+        all_accuracy = []
+        # train a model 
+        # return y_test, y_pred 
+        avg_accuracy = []
+        self.x = self.x[chosen_x]
+        self.y = self.y[chosen_x]
+        for d in range(self.x.shape[0]):
+            # training set and test set
+            accuracy =[]
+            print("within # person:",d)
+            for i in range(self.x[d].shape[0]):
+                x_train,x_test = self.get_x_train_test(self.x[d],i)
+                y_train,y_test = self.get_y_train_test(self.y[d],i)
+                # y_test,y_pred = self.model_train(x_train,x_test,y_train,y_test,self.model)
+                # accuracy.append(accuracy_score(y_test,y_pred))
+                print(x_train.shape,x_test.shape)
+                print(y_train.shape,y_test.shape)
+            # avg_accuracy.append(sum(accuracy)/len(accuracy))
+            # all_accuracy.append(accuracy)
+        return all_accuracy,avg_accuracy
