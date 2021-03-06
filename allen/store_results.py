@@ -19,5 +19,5 @@ def write_to_json(file_name,avg_acc,coefs):
         json.dump(data, outfile)
 
 # read_accuracy 
-def write_json(file_name):
+def read_json(file_name):
     return json.load(file_name)

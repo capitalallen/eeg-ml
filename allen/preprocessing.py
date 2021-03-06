@@ -297,11 +297,11 @@ def ex_preprocessing_33(type=None,index=None):
 
 def ex_preprocessing_stress(type = None,stress_level=None, index=[40,41]):
     dp = Data_prepare() 
-    # pos = [[0,3],[0,2],[0,1],[0,0]]
-    # neg = [[1,3],[1,2],[1,1],[1,0]]
+    pos = [[0,3],[0,2],[0,1],[0,0]]
+    neg = [[1,3],[1,2],[1,1],[1,0]]
     # netural vs postive 
-    pos = [[0,0],[0,1],[1,2],[1,3],[2,0],[2,1],[2,2],[2,3]]
-    neg = [[0,2],[0,3],[1,0],[1,1],[3,0],[3,1],[3,2],[3,3]] 
+    # pos = [[0,0],[0,1],[1,2],[1,3],[2,0],[2,1],[2,2],[2,3]]
+    # neg = [[0,2],[0,3],[1,0],[1,1],[3,0],[3,1],[3,2],[3,3]] 
     index=[40,41]
     df = dp.combine_male_female()
     df = dp.remove_person(df,index)
