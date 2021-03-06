@@ -6,15 +6,15 @@ from preprocessing_33 import  ex_preprocessing_33, ex_preprocessing_stress_33
 from cv import Train
 from store_results import write_to_json
 from multiprocessing import Process
-def ex_within():
+def ex_within(i):
     # within, with bad data 
     folder = "./results/"
     x,y = ex_preprocessing(0)
     file = "within_42_logistic"
-    for i in [0.1,50,100,1000]: # ,50,100,1000
-        train = Train(x,y,i)
-        avgs,coefs = train.within_train()
-        write_to_json(folder+file+str(i)+".json",avgs,coefs)
+    # for i in [0.1,50,100,1000]: # ,50,100,1000
+    train = Train(x,y,i)
+    avgs,coefs = train.within_train()
+    write_to_json(folder+file+str(i)+".json",avgs,coefs)
     # remove bad data: boy: 4, 12; girls: 1,2
     # x,y = ex_preprocessing(1)
     # train = Train(x,y)
