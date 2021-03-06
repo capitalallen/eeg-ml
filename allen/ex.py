@@ -101,15 +101,16 @@ if __name__ == "__main__":
     # ex_within()
     # ex_stress_leavone()
     # 0.1,50,100,1000
-    p = Process(target=ex_leave_one(), args=(0.1,))
+    p = Process(target=ex_leave_one, args=(0.1,))
     p.start()
 
-    p1 = Process(target=ex_leave_one(), args=(50,))
+    p1 = Process(target=ex_leave_one, args=(50,))
     p1.start()
 
-    p2 = Process(target=ex_leave_one(), args=(100,))
+    p2 = Process(target=ex_leave_one, args=(100,))
     p2.start()
-    p3 = Process(target=ex_leave_one(), args=(1000,))
+
+    p3 = Process(target=ex_leave_one, args=(1000,))
     p3.start()
     #ex_stress_leavone() 
     # ex_leave_one_33()
