@@ -56,10 +56,11 @@ def ex_leave_one_stress_33():
 def ex_leave_one():
     file = "./results/"
     x,y = ex_preprocessing(0)
-    train = Train(x,y,0.1)
-    train.update_param(0.1)
-    avg_acc, coefs= train.leav_one_train()
-    write_to_json(file+"leaveone_with_bad_logistic.json",avg_acc,coefs)
+    for i in [0.1,50,100,1000]:
+        train = Train(x,y,i)
+        train.update_param(i)
+        avg_acc, coefs= train.leav_one_train()
+        write_to_json(file+"leaveone_with_bad_logistic" +str(i)+".json",avg_acc,coefs)
     # remove bad data: boy: 4, 12; girls: 1,2
     # x,y = ex_preprocessing(1,index=[4,12,24,25])
     # train = Train(x,y)

@@ -79,8 +79,7 @@ class Train:
     def leav_one_train(self):
         all_accuracy=[]
         coefs_list = []
-        # self.x.shape[0]
-        for d in range(2):
+        for d in range(self.x.shape[0]):
             print("leave one out # person:",d)
             if d == 0:
                 x_train,y_train = self.get_x_y_train(self.x[d+1:],self.y[d+1:])
