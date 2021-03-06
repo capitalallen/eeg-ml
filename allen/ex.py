@@ -9,10 +9,11 @@ def ex_within():
     # within, with bad data 
     folder = "./results/"
     x,y = ex_preprocessing(0)
-    file = "within_rf_preprocessed.json"
-    train = Train(x,y)
-    all_acc,avg_acc = train.within_train()
-    write_to_json(folder+file,all_acc,avg_acc)
+    file = "within_logistic"
+    for i in [0.1,50,100,1000]: # ,50,100,1000
+        train = Train(x,y,i)
+        avgs,coefs = train.within_train()
+        write_to_json(folder+file+str(i)+".json",avgs,coefs)
     # remove bad data: boy: 4, 12; girls: 1,2
     # x,y = ex_preprocessing(1)
     # train = Train(x,y)
@@ -97,9 +98,9 @@ if __name__ == "__main__":
     # p1.start()
     # p1.join()
     # ex_within()
-    # ex_within()
+    ex_within()
     # ex_stress_leavone()
-    ex_leave_one()
+    # ex_leave_one()
     #ex_stress_leavone() 
     # ex_leave_one_33()
     # ex_leave_one_stress_33()

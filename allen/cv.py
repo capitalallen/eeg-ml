@@ -63,7 +63,7 @@ class Train:
                 # print(x_train.shape,x_test.shape)
                 # print(y_train.shape,y_test.shape)
             avg_accuracy.append(sum(accuracy)/len(accuracy))
-            coefs_list.append(self.calculate_avg_coefs(np.array(temp_coefs)))
+            coefs_list.append(self.calculate_avg_coefs(np.array(temp_coefs)).tolist())
         return avg_accuracy,coefs_list
     
     # get x and y training set for leave one out 
