@@ -9,7 +9,7 @@ def ex_within():
     # within, with bad data 
     folder = "./results/"
     x,y = ex_preprocessing(0)
-    file = "within_logistic_preprocessed.json"
+    file = "within_rf_preprocessed.json"
     train = Train(x,y)
     all_acc,avg_acc = train.within_train()
     write_to_json(folder+file,all_acc,avg_acc)
@@ -56,9 +56,10 @@ def ex_leave_one_stress_33():
 def ex_leave_one():
     file = "./results/"
     x,y = ex_preprocessing(0)
-    train = Train(x,y)
-    all_acc= train.leav_one_train()
-    write_to_json(file+"leaveone_with_bad.json",all_acc,[])
+    train = Train(x,y,0.1)
+    train.update_param(0.1)
+    avg_acc, coefs= train.leav_one_train()
+    write_to_json(file+"leaveone_with_bad_logistic.json",avg_acc,coefs)
     # remove bad data: boy: 4, 12; girls: 1,2
     # x,y = ex_preprocessing(1,index=[4,12,24,25])
     # train = Train(x,y)
@@ -70,7 +71,7 @@ def ex_stress_leavone():
     stress_levels = ['l','m','h'] # ,'m','h'
     removed_data_type = [1]
     for i in removed_data_type:
-        train_type = "raw_data_" # if i == 0 else "without_bad_"
+        train_type = "raw_data_netVSneg_" # if i == 0 else "without_bad_"
         for j in stress_levels:
             print(train_type,j)
             x,y = ex_preprocessing_stress(i,j)
@@ -95,8 +96,9 @@ if __name__ == "__main__":
     # p1.start()
     # p1.join()
     # ex_within()
-    ex_within()
-    # ex_leave_one()
+    # ex_within()
+    # ex_stress_leavone()
+    ex_leave_one()
     #ex_stress_leavone() 
     # ex_leave_one_33()
     # ex_leave_one_stress_33()

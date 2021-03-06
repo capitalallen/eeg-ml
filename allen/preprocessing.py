@@ -50,6 +50,19 @@ class Data_prepare:
                 diff = data[i][position[1][0]][position[1][1]] - data[i][position[2][0]][position[2][1]]
             arr.append(diff)
         return np.array(arr)
+    # netural vs negative 
+    # def get_pos_or_neg(self,data,position,type=0):
+    #     arr = []
+    #     index = 0
+    #     for i in range(data.shape[0]):
+    # #         print(data[i].shape)
+    #         temp = []
+    #         for j in position:
+    #             for k in data[i][j[0]][j[1]]:
+    #                 temp.append(k)
+    #         arr.append(np.array(temp))
+    #     return np.array(arr)
+
 
     # select frequenceis and (0-4s -> 0 or 0.5-4.5s -> 1)
     # output: x 
@@ -181,12 +194,18 @@ class Data_prepare:
 def ex_preprocessing(type=None,index=None):
     # index = [11,18,36]
     dp = Data_prepare() 
+    # order difference 
     pos = [[0,3],[0,2],[0,1],[0,0]]
     neg = [[1,3],[1,2],[1,1],[1,0]]
+
+    # netural vs negative 
+    # pos = [[0,0],[0,1],[1,2],[1,3],[2,0],[2,1],[2,2],[2,3]]
+    # neg = [[0,2],[0,3],[1,0],[1,1],[3,0],[3,1],[3,2],[3,3]] 
     if type == 0:
         df = dp.combine_male_female()
         pos_df = dp.get_pos_or_neg(df,pos)
         neg_df = dp.get_pos_or_neg(df,neg)
+
         pos_sequeezed = dp.squeeze_feature_size(pos_df)
         neg_sequeezed = dp.squeeze_feature_size(neg_df)
         pos_labels = dp.generate_labels(pos_sequeezed,1)
@@ -278,9 +297,11 @@ def ex_preprocessing_33(type=None,index=None):
 
 def ex_preprocessing_stress(type = None,stress_level=None, index=[40,41]):
     dp = Data_prepare() 
-    pos = [[0,3],[0,2],[0,1],[0,0]]
-    neg = [[1,3],[1,2],[1,1],[1,0]]
-
+    # pos = [[0,3],[0,2],[0,1],[0,0]]
+    # neg = [[1,3],[1,2],[1,1],[1,0]]
+    # netural vs postive 
+    pos = [[0,0],[0,1],[1,2],[1,3],[2,0],[2,1],[2,2],[2,3]]
+    neg = [[0,2],[0,3],[1,0],[1,1],[3,0],[3,1],[3,2],[3,3]] 
     index=[40,41]
     df = dp.combine_male_female()
     df = dp.remove_person(df,index)
