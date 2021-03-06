@@ -8,7 +8,7 @@ class Train:
     def __init__(self,x,y,alpha):
         self.x = x 
         self.y = y
-        # self.model = RandomForestClassifier(n_estimators=150) 
+        # self.model = RandomForestClassifier(n_estimators=1) 
         self.model = Pipeline([('scaler',StandardScaler()),('clf',LogisticRegression(solver='saga',penalty='l1',C=alpha,max_iter=1000))])
     def update_param(self,alpha):
     # get x train and test set for witin CV 
@@ -32,6 +32,7 @@ class Train:
     def model_train(self,x_train,x_test,y_train,y_test,model):
         model.fit(x_train,y_train.ravel())
         y_pred = model.predict(x_test)
+        # return accuracy_score(y_test,y_pred),model.feature_importances_
         return accuracy_score(y_test,y_pred),model.named_steps['clf'].coef_
 
     def calculate_avg_coefs(self,coefs):

@@ -1,6 +1,8 @@
 
 from inspect import indentsize
 from types import prepare_class
+
+from six import remove_move
 from preprocessing import ex_preprocessing, ex_preprocessing_stress,ex_preprocessing_sepecial
 from preprocessing_33 import  ex_preprocessing_33, ex_preprocessing_stress_33
 from cv import Train
@@ -9,8 +11,9 @@ from multiprocessing import Process
 def ex_within(i):
     # within, with bad data 
     folder = "./results/"
-    x,y = ex_preprocessing(0)
-    file = "within_42_logistic"
+    remove_index = [11,18,36] 
+    x,y = ex_preprocessing(1,remove_index)
+    file = "within_39_logistic"
     # for i in [0.1,50,100,1000]: # ,50,100,1000
     train = Train(x,y,i)
     avgs,coefs = train.within_train()
