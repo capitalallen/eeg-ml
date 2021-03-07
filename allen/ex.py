@@ -80,7 +80,7 @@ def ex_stress_leavone(i):
         x,y = ex_preprocessing_stress(j)
         train = Train(x,y,i)
         accs,coefs= train.leav_one_train()
-        write_to_json(file+"leave_one_"+train_type+j+str(1)+".json",accs,coefs)
+        write_to_json(file+"leave_one_"+train_type+j+str(i)+".json",accs,coefs)
 
     # remove bad data: boy: 4, 12; girls: 1,2
     # x,y = ex_preprocessing_stress(1)
@@ -117,5 +117,5 @@ if __name__ == "__main__":
     # ex_leave_one_33()
     # ex_leave_one_stress_33()
     with Pool(5) as p:
-        alphas = [0.1, 50] # [0.1, 50, 100,1000]
+        alphas = [0.1, 50, 100,1000] # [0.1, 50, 100,1000]
         p.map(ex_leave_one, alphas)
