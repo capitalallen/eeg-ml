@@ -12,8 +12,8 @@ def ex_within(i):
     # within, with bad data 
     folder = "./results/"
     remove_index = [11,18,36] 
-    x,y = ex_preprocessing(1,remove_index)
-    file = "within_39_logistic"
+    x,y = ex_preprocessing(0)
+    file = "within_33logistic"
     # for i in [0.1,50,100,1000]: # ,50,100,1000
     train = Train(x,y,i)
     avgs,coefs = train.within_train()

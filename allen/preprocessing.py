@@ -6,12 +6,12 @@ class Data_prepare:
     def __inti__(self):
         pass 
     def convert_mat_np(self,gender=None):
-        m_file = "./raw_data/Emotrans1_Boy_data_preprocessed_42.mat" 
-        f_file = "./raw_data/Emotrans1_girl_data_preprocessed_42.mat"
+        # m_file = "./raw_data/Emotrans1_Boy_data_preprocessed_42.mat" 
+        # f_file = "./raw_data/Emotrans1_girl_data_preprocessed_42.mat"
         # m_file = "./raw_data/Emotrans1_Boy_data_raw.mat" 
         # f_file = "./raw_data/Emotrans1_girl_data_raw.mat"
-        # m_file = "./raw_data/Emotrans1_Boy_data_preprocessed_33.mat"
-        # f_file = "./raw_data/Emotrans1_girl_data_preprocessed_33.mat"
+        m_file = "./raw_data/Emotrans1_Boy_data_preprocessed_33.mat"
+        f_file = "./raw_data/Emotrans1_girl_data_preprocessed_33.mat"
         if gender == "f":
             data_dict_female = mat73.loadmat(f_file, use_attrdict=True)
             return np.array(data_dict_female["All_Feature"])
