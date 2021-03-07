@@ -77,7 +77,7 @@ def ex_stress_leavone(i):
     train_type = "order_42_" # if i == 0 else "without_bad_"
     for j in stress_levels:
         print(train_type,j)
-        x,y = ex_preprocessing_stress(j)
+        x,y = ex_preprocessing_stress(0,j)
         train = Train(x,y,i)
         accs,coefs= train.leav_one_train()
         write_to_json(file+"leave_one_"+train_type+j+str(i)+".json",accs,coefs)
