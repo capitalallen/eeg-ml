@@ -74,7 +74,7 @@ def ex_leave_one(i):
 def ex_stress_leavone(i):
     file = "./results/"
     stress_levels = ['l','m','h'] # ,'m','h'
-    train_type = "order_33_" # if i == 0 else "without_bad_"
+    train_type = "order_33_stress_" # if i == 0 else "without_bad_"
     for j in stress_levels:
         print(train_type,j)
         x,y = ex_preprocessing_stress(0,j)
