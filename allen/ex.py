@@ -118,4 +118,4 @@ if __name__ == "__main__":
     # ex_leave_one_stress_33()
     with Pool(5) as p:
         alphas = [0.1, 50, 100,1000] # [0.1, 50, 100,1000]
-        p.map(ex_leave_one, alphas)
+        p.map(ex_stress_leavone, alphas)
