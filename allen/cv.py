@@ -8,7 +8,7 @@ class Train:
     def __init__(self,x,y,alpha):
         self.x = x 
         self.y = y
-        self.model = RandomForestClassifier(n_estimators=1) 
+        self.model = RandomForestClassifier(n_estimators=150) 
         # self.model = Pipeline([
         #             ('clf', LogisticRegression(solver='saga', 
         #                                 penalty='l1',
