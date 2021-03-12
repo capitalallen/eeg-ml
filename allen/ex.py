@@ -62,9 +62,9 @@ def ex_leave_one(i):
     x,y = ex_preprocessing(0)
     # for i in [0.1,50,100,1000]:
     train = Train(x,y,i)
-    train.update_param(i)
+    # # train.update_param(i)
     avg_acc, coefs= train.leav_one_train()
-    write_to_json(file+"leaveone_42_logistic" +str(i)+".json",avg_acc,coefs)
+    write_to_json(file+"leaveone_46_raw_" +str(i)+".json",avg_acc,coefs)
     # remove bad data: boy: 4, 12; girls: 1,2
     # x,y = ex_preprocessing(1,index=[4,12,24,25])
     # train = Train(x,y)
@@ -74,7 +74,7 @@ def ex_leave_one(i):
 def ex_stress_leavone(i):
     file = "./results/"
     stress_levels = ['l','m','h'] # ,'m','h'
-    train_type = "order_33_stress_" # if i == 0 else "without_bad_"
+    train_type = "order_46_raw_stress_" # if i == 0 else "without_bad_"
     for j in stress_levels:
         print(train_type,j)
         x,y = ex_preprocessing_stress(0,j)
@@ -102,11 +102,11 @@ if __name__ == "__main__":
     # ex_within()
     # ex_stress_leavone()
     # 0.1,50,100,1000
-    # p = Process(target=ex_stress_leavone, args=(0.1,))
-    # p.start()
+    p = Process(target=ex_leave_one, args=(50,))
+    p.start()
 
-    # p1 = Process(target=ex_stress_leavone, args=(50,))
-    # p1.start()
+    p1 = Process(target=ex_stress_leavone, args=(50,))
+    p1.start()
 
     # p2 = Process(target=ex_stress_leavone, args=(100,))
     # p2.start()
@@ -116,6 +116,6 @@ if __name__ == "__main__":
     #ex_stress_leavone() 
     # ex_leave_one_33()
     # ex_leave_one_stress_33()
-    alphas = [0.1, 50, 100,1000] # [0.1, 50, 100,1000]
-    with Pool(5) as p:
-        p.map(ex_stress_leavone, alphas)
+    # alphas = [0.1] # [0.1, 50, 100,1000]
+    # with Pool(5) as p:
+    #     p.map(ex_stress_leavone, alphas)
