@@ -6,10 +6,10 @@ class Data_prepare:
     def __inti__(self):
         pass 
     def convert_mat_np(self,gender=None):
-        m_file = "./raw_data/Emotrans1_Boy_data_preprocessed_42.mat" 
-        f_file = "./raw_data/Emotrans1_girl_data_preprocessed_42.mat"
-        # m_file = "./raw_data/Emotrans1_Boy_data_raw.mat" 
-        # f_file = "./raw_data/Emotrans1_girl_data_raw.mat"
+        # m_file = "./raw_data/Emotrans1_Boy_data_preprocessed_42.mat" 
+        # f_file = "./raw_data/Emotrans1_girl_data_preprocessed_42.mat"
+        m_file = "./raw_data/Emotrans1_Boy_data_raw.mat" 
+        f_file = "./raw_data/Emotrans1_girl_data_raw.mat"
         # m_file = "./raw_data/Emotrans1_Boy_data_preprocessed_33.mat"
         # f_file = "./raw_data/Emotrans1_girl_data_preprocessed_33.mat"
         if gender == "f":
@@ -38,7 +38,7 @@ class Data_prepare:
         return np.array(new_df)
 
     # type: 0 --> average 3+4 and 1+2; 1--> use only 3 and 2  
-    def get_pos_or_neg(self,data,position,type=0):
+    def order_difference_helper(self,data,position,type=0):
         arr = []
         index = 0
         for i in range(data.shape[0]):
@@ -50,19 +50,23 @@ class Data_prepare:
             arr.append(diff)
         return np.array(arr)
     # netural vs negative 
-    # def get_pos_or_neg(self,data,position,type=0):
-    #     arr = []
-    #     index = 0
-    #     for i in range(data.shape[0]):
-    # #         print(data[i].shape)
-    #         temp = []
-    #         for j in position:
-    #             for k in data[i][j[0]][j[1]]:
-    #                 temp.append(k)
-    #         arr.append(np.array(temp))
-    #     return np.array(arr)
-
-
+    def netural_vs_negative_helper(self,data,position):
+        arr = []
+        index = 0
+        for i in range(data.shape[0]):
+    #         print(data[i].shape)
+            temp = []
+            for j in position:
+                for k in data[i][j[0]][j[1]]:
+                    temp.append(k)
+            arr.append(np.array(temp))
+        return np.array(arr)
+    # type: 1--> order difference, 2--> netural vs negative  
+    def get_pos_or_neg(self,data,position,type=0,order_type=0):
+        if type == 0:
+            return self.order_difference_helper(data,position)
+        elif type == 1:
+            return self.netural_vs_negative_helper(data,position,order_type=0)
     # select frequenceis and (0-4s -> 0 or 0.5-4.5s -> 1)
     # output: x 
     def choose_freq(self,data=None,freq = None, sec=None):
@@ -201,8 +205,8 @@ def ex_preprocessing(type=None,index=None):
     neg = [[0,2],[0,3],[1,0],[1,1],[3,0],[3,1],[3,2],[3,3]] 
     if type == 0:
         df = dp.combine_male_female()
-        pos_df = dp.get_pos_or_neg(df,pos)
-        neg_df = dp.get_pos_or_neg(df,neg)
+        pos_df = dp.get_pos_or_neg(df,pos,0)
+        neg_df = dp.get_pos_or_neg(df,neg,0)
 
         pos_sequeezed = dp.squeeze_feature_size(pos_df)
         neg_sequeezed = dp.squeeze_feature_size(neg_df)

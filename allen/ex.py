@@ -6,48 +6,36 @@ from cv import Train
 from store_results import write_to_json,write_to_json_random
 from multiprocessing import Process
 from multiprocessing import Pool
+from sklearn.ensemble import RandomForestClassifier
 import numpy as np 
-def ex_within(i):
+import os 
+from sklearn.linear_model import LogisticRegression
+from sklearn.pipeline import Pipeline
+def ex_within(model,name):
     # within, with bad data 
-    folder = "./results/"
+    folder = "./results/netural_vs_negative/"
+    if not os.path.exists(folder):
+        os.makedirs(folder)
     x,y = ex_preprocessing(0)
-    file = "within_logistic"
+    model = model
+    file = name
     # for i in [0.1,50,100,1000]: # ,50,100,1000
-    train = Train(x,y,i)
-    avgs,coefs = train.within_train()
-    write_to_json(folder+file+str(i)+".json",avgs,coefs)
-    # remove bad data: boy: 4, 12; girls: 1,2
-    # x,y = ex_preprocessing(1)
-    # train = Train(x,y)
-    # all_acc,avg_acc = train.within_train()
-    # write_to_json(file+"within_without_bad.json",all_acc,avg_acc)
+    train = Train(x,y,0.1,model)
+    avgs,_ = train.within_train()
+    write_to_json(folder+file+".json",avgs)
 
-# def ex_within():
-#     # within, with bad data 
-#     file = "./results/"
-#     index = [1,2,3]
-#     x,y = ex_preprocessing_sepecial(0)
-#     print(x.shape)
-#     return 
-    # train = Train(x,y)
-    # index = 0
-    # all_acc,avg_acc = train.within_train_special(4,index)
-    # write_to_json(file+"within_with_bad.json",all_acc,avg_acc)
-    # remove bad data: boy: 4, 12; girls: 1,2
-    # x,y = ex_preprocessing(1)
-    # train = Train(x,y)
-    # all_acc,avg_acc = train.within_train()
-    # write_to_json(file+"within_without_bad.json",all_acc,avg_acc)
 
-def ex_leave_one(i):
+
+def ex_leave_one():
     file = "./results/"
     remove_index = [] 
     x,y = ex_preprocessing(0)
     # for i in [0.1,50,100,1000]:
-    train = Train(x,y,i)
+    model = RandomForestClassifier(n_estimators=150) 
+    train = Train(x,y,0.1,model)
     # # train.update_param(i)
-    avg_acc, coefs= train.leav_one_train()
-    write_to_json(file+"leaveone_46_raw_" +str(i)+".json",avg_acc,coefs)
+    avg_acc, _= train.leav_one_train()
+    write_to_json(file+"leaveone_46_raw_" +str(i)+".json",avg_acc)
     # remove bad data: boy: 4, 12; girls: 1,2
     # x,y = ex_preprocessing(1,index=[4,12,24,25])
     # train = Train(x,y)
@@ -105,12 +93,17 @@ if __name__ == "__main__":
     # ex_within()
     # ex_stress_leavone()
     # 0.1,50,100,1000
-    ex_stress_random()
-    # p = Process(target=ex_leave_one, args=(50,))
-    # p.start()
+    # ex_stress_random()
+    rf =  RandomForestClassifier(n_estimators=150) 
+    log = model = Pipeline([
+                    ('clf', LogisticRegression(solver='saga', 
+                        max_iter=1000))
+                    ])
+    p = Process(target=ex_within, args=(rf,"rf"))
+    p.start()
 
-    # p1 = Process(target=ex_stress_leavone, args=(50,))
-    # p1.start()
+    p1 = Process(target=ex_within, args=(log,"logistic"))
+    p1.start()
 
     # p2 = Process(target=ex_stress_leavone, args=(100,))
     # p2.start()

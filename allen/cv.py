@@ -5,10 +5,11 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 class Train:
-    def __init__(self,x,y,alpha):
+    def __init__(self,x,y,alpha,model):
         self.x = x 
         self.y = y
-        self.model = RandomForestClassifier(n_estimators=150) 
+        self.model = model
+        #self.model = RandomForestClassifier(n_estimators=150) 
         # self.model = Pipeline([
         #             ('clf', LogisticRegression(solver='saga', 
         #                                 penalty='l1',
