@@ -91,7 +91,6 @@ def ex_stress_random():
             train = Train(x_selected,y_selected,0.1)
             accs,_= train.leav_one_train()
             write_to_json(f"{folder}trailNum{str(trail)}_groupNum{str(num)}.json",accs)   
-        break 
 def test():
     print("test")
 if __name__ == "__main__":
