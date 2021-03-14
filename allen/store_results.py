@@ -12,11 +12,11 @@ from pathlib import Path
 #         json.dump(data, outfile)
 
 # store accuracy and coefs
-def write_to_json(file_name,avg_acc,coefs):
+def write_to_json(file_name,avg_acc,coefs=None):
     data = {} 
     data['name'] = file_name 
     data['avg_acc'] = avg_acc
-    data['coefs'] = coefs
+    # data['coefs'] = coefs
     with open(file_name, 'w') as outfile:
         json.dump(data, outfile)
 

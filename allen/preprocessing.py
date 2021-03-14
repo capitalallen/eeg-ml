@@ -6,10 +6,10 @@ class Data_prepare:
     def __inti__(self):
         pass 
     def convert_mat_np(self,gender=None):
-        # m_file = "./raw_data/Emotrans1_Boy_data_preprocessed_42.mat" 
-        # f_file = "./raw_data/Emotrans1_girl_data_preprocessed_42.mat"
-        m_file = "./raw_data/Emotrans1_Boy_data_raw.mat" 
-        f_file = "./raw_data/Emotrans1_girl_data_raw.mat"
+        m_file = "./raw_data/Emotrans1_Boy_data_preprocessed_42.mat" 
+        f_file = "./raw_data/Emotrans1_girl_data_preprocessed_42.mat"
+        # m_file = "./raw_data/Emotrans1_Boy_data_raw.mat" 
+        # f_file = "./raw_data/Emotrans1_girl_data_raw.mat"
         # m_file = "./raw_data/Emotrans1_Boy_data_preprocessed_33.mat"
         # f_file = "./raw_data/Emotrans1_girl_data_preprocessed_33.mat"
         if gender == "f":
@@ -39,29 +39,29 @@ class Data_prepare:
         return np.array(new_df)
 
     # type: 0 --> average 3+4 and 1+2; 1--> use only 3 and 2  
-    # def get_pos_or_neg(self,data,position,type=0):
-    #     arr = []
-    #     index = 0
-    #     for i in range(data.shape[0]):
-    # #         print(data[i].shape)
-    #         if type == 0:
-    #             diff = (data[i][position[0][0]][position[0][1]]+data[i][position[1][0]][position[1][1]])/2 - (data[i][position[3][0]][position[3][1]]+data[i][position[2][0]][position[2][1]])/2
-    #         elif type == 1:
-    #             diff = data[i][position[1][0]][position[1][1]] - data[i][position[2][0]][position[2][1]]
-    #         arr.append(diff)
-    #     return np.array(arr)
-    # netural vs negative 
     def get_pos_or_neg(self,data,position,type=0):
         arr = []
         index = 0
         for i in range(data.shape[0]):
     #         print(data[i].shape)
-            temp = []
-            for j in position:
-                for k in data[i][j[0]][j[1]]:
-                    temp.append(k)
-            arr.append(np.array(temp))
+            if type == 0:
+                diff = (data[i][position[0][0]][position[0][1]]+data[i][position[1][0]][position[1][1]])/2 - (data[i][position[3][0]][position[3][1]]+data[i][position[2][0]][position[2][1]])/2
+            elif type == 1:
+                diff = data[i][position[1][0]][position[1][1]] - data[i][position[2][0]][position[2][1]]
+            arr.append(diff)
         return np.array(arr)
+    # netural vs negative 
+    # def get_pos_or_neg(self,data,position,type=0):
+    #     arr = []
+    #     index = 0
+    #     for i in range(data.shape[0]):
+    # #         print(data[i].shape)
+    #         temp = []
+    #         for j in position:
+    #             for k in data[i][j[0]][j[1]]:
+    #                 temp.append(k)
+    #         arr.append(np.array(temp))
+    #     return np.array(arr)
 
 
     # select frequenceis and (0-4s -> 0 or 0.5-4.5s -> 1)
@@ -185,7 +185,7 @@ class Data_prepare:
                 new_x.append(x[i])
                 new_y.append(y[i])
         return np.array(new_x), np.array(new_y)
-  
+
 # type
     # 0 for not removing bad data 
     # 1 for removing bad data
@@ -231,76 +231,15 @@ def delete_index(arr,index):
         new_data.append(np.delete(arr[j],index,axis=0))
     return np.array(new_data)
 
-def ex_preprocessing_sepecial(type=None,index=None):
-    # index = [11,18,36]
-    dp = Data_prepare() 
-    pos = [[0,3],[0,2],[0,1],[0,0]]
-    neg = [[1,3],[1,2],[1,1],[1,0]]
-    if type == 0:
-        df = dp.combine_male_female()
-        pos_df = dp.get_pos_or_neg(df,pos)
-        neg_df = dp.get_pos_or_neg(df,neg)
-
-        pos_df = delete_index(pos_df,index)
-        neg_df = delete_index(neg_df,index)
-        
-        pos_sequeezed = dp.squeeze_feature_size(pos_df)
-        neg_sequeezed = dp.squeeze_feature_size(neg_df)
-        pos_labels = dp.generate_labels(pos_sequeezed,1)
-        neg_labels = dp.generate_labels(neg_sequeezed,0)
-        # netX,netY,negX,negY
-        # return x and y
-        return dp.combine_net_neg(pos_sequeezed,pos_labels,neg_sequeezed,neg_labels)
-    elif type ==1:
-        df = dp.combine_male_female()
-        df = dp.remove_person(df,index)
-        pos_df = dp.get_pos_or_neg(df,pos)
-        neg_df = dp.get_pos_or_neg(df,neg)
-        pos_sequeezed = dp.squeeze_feature_size(pos_df)
-        neg_sequeezed = dp.squeeze_feature_size(neg_df)
-        pos_labels = dp.generate_labels(pos_sequeezed,1)
-        neg_labels = dp.generate_labels(neg_sequeezed,0)
-        # netX,netY,negX,negY
-        # return x and y
-        return dp.combine_net_neg(pos_sequeezed,pos_labels,neg_sequeezed,neg_labels)
-
-def ex_preprocessing_33(type=None,index=None):
-    # index = [11,18,36]
-    dp = Data_prepare() 
-    pos = [[0,3],[0,2],[0,1],[0,0]]
-    neg = [[1,3],[1,2],[1,1],[1,0]]
-    if type == 0:
-        df = dp.combine_male_female()
-        pos_df = dp.get_pos_or_neg(df,pos)
-        neg_df = dp.get_pos_or_neg(df,neg)
-        pos_sequeezed = dp.squeeze_feature_size_33(pos_df)
-        neg_sequeezed = dp.squeeze_feature_size_33(neg_df)
-        pos_labels = dp.generate_labels(pos_sequeezed,1)
-        neg_labels = dp.generate_labels(neg_sequeezed,0)
-        # netX,netY,negX,negY
-        # return x and y
-        return dp.combine_net_neg(pos_sequeezed,pos_labels,neg_sequeezed,neg_labels)
-    elif type ==1:
-        df = dp.combine_male_female()
-        df = dp.remove_person(df,index)
-        pos_df = dp.get_pos_or_neg(df,pos)
-        neg_df = dp.get_pos_or_neg(df,neg)
-        pos_sequeezed = dp.squeeze_feature_size_33(pos_df)
-        neg_sequeezed = dp.squeeze_feature_size_33(neg_df)
-        pos_labels = dp.generate_labels(pos_sequeezed,1)
-        neg_labels = dp.generate_labels(neg_sequeezed,0)
-        # netX,netY,negX,negY
-        # return x and y
-        return dp.combine_net_neg(pos_sequeezed,pos_labels,neg_sequeezed,neg_labels)
 
 
 def ex_preprocessing_stress(type = None,stress_level=None, index=[40,41]):
     dp = Data_prepare() 
-    # pos = [[0,3],[0,2],[0,1],[0,0]]
-    # neg = [[1,3],[1,2],[1,1],[1,0]]
+    pos = [[0,3],[0,2],[0,1],[0,0]]
+    neg = [[1,3],[1,2],[1,1],[1,0]]
     # netural vs postive 
-    pos = [[0,0],[0,1],[1,2],[1,3],[2,0],[2,1],[2,2],[2,3]]
-    neg = [[0,2],[0,3],[1,0],[1,1],[3,0],[3,1],[3,2],[3,3]] 
+    # pos = [[0,0],[0,1],[1,2],[1,3],[2,0],[2,1],[2,2],[2,3]]
+    # neg = [[0,2],[0,3],[1,0],[1,1],[3,0],[3,1],[3,2],[3,3]] 
     index=[40,41]
     df = dp.combine_male_female()
     df = dp.remove_person(df,index)
@@ -328,3 +267,44 @@ def ex_preprocessing_stress(type = None,stress_level=None, index=[40,41]):
         # netX,netY,negX,negY
         # return x and y
     return dp.choose_x_y_stress(stress_level,x,labels)
+"""
+randomly split 40 elements to 3 groups 
+"""
+def shuffle_and_group(array):
+    np.random.shuffle(array)
+    return array[:14],array[14:28],array[28:]
+"""
+get_preprocessed_combined_net_neg
+output:
+- return combine_net_neg 
+"""
+
+def get_preprocessed_combined_net_neg(index=[40,41]):
+    dp = Data_prepare() 
+    pos = [[0,3],[0,2],[0,1],[0,0]]
+    neg = [[1,3],[1,2],[1,1],[1,0]]
+    # netural vs postive 
+    # pos = [[0,0],[0,1],[1,2],[1,3],[2,0],[2,1],[2,2],[2,3]]
+    # neg = [[0,2],[0,3],[1,0],[1,1],[3,0],[3,1],[3,2],[3,3]] 
+    index=[40,41]
+    df = dp.combine_male_female()
+    df = dp.remove_person(df,index)
+    pos_df = dp.get_pos_or_neg(df,pos)
+    neg_df = dp.get_pos_or_neg(df,neg)
+    pos_sequeezed = dp.squeeze_feature_size(pos_df)
+    neg_sequeezed = dp.squeeze_feature_size(neg_df)
+    pos_labels = dp.generate_labels(pos_sequeezed,1)
+    neg_labels = dp.generate_labels(neg_sequeezed,0)
+    return dp.combine_net_neg(pos_sequeezed,pos_labels,neg_sequeezed,neg_labels)
+
+"""
+choose one stress group 
+"""
+def choose_one_stree_group(x,y,index):
+    new_x = []
+    new_y = []
+    for i in range(x.shape[0]):
+        if i in index:
+            new_x.append(x[i])
+            new_y.append(y[i])
+    return np.array(new_x), np.array(new_y)
