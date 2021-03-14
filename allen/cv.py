@@ -44,7 +44,7 @@ class Train:
     def model_train(self,x_train,x_test,y_train,y_test,model):
         model.fit(x_train,y_train.ravel())
         y_pred = model.predict(x_test)
-        return accuracy_score(y_test,y_pred),model.feature_importances_
+        return accuracy_score(y_test,y_pred),0
         # return accuracy_score(y_test,y_pred),model.named_steps['clf'].coef_
 
     def calculate_avg_coefs(self,coefs):
