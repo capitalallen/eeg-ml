@@ -3,7 +3,7 @@ from types import prepare_class
 from preprocessing import ex_preprocessing, ex_preprocessing_stress
 from preprocessing import shuffle_and_group, get_preprocessed_combined_net_neg,choose_one_stree_group
 from cv import Train
-from store_results import write_to_json
+from store_results import write_to_json,write_to_json_random
 from multiprocessing import Process
 from multiprocessing import Pool
 import numpy as np 
@@ -90,7 +90,7 @@ def ex_stress_random():
             x_selected, y_selected = choose_one_stree_group(x,y,groups[num])
             train = Train(x_selected,y_selected,0.1)
             accs,_= train.leav_one_train()
-            write_to_json(f"{folder}trailNum{str(trail)}_groupNum{str(num)}.json",accs)   
+            write_to_json_random(f"{folder}trailNum{str(trail)}_groupNum{str(num)}.json",accs,groups[num])   
 def test():
     print("test")
 if __name__ == "__main__":
