@@ -13,7 +13,7 @@ leave one out random 3 group
 """
 def ex_train(x,y,path):
     train = Train(x,y,0.1)
-    accs,_ = train.leave_one_train() 
+    accs,_ = train.leav_one_train() 
     write_to_json(path,accs)
 def ex():
     folder = "./results/male_female_order/"
