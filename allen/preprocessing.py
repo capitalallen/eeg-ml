@@ -20,7 +20,6 @@ class Data_prepare:
             return np.array(data_dict_female["All_Feature"])  
         else: 
             raise Exception("gender not defined")
-
     def combine_male_female(self):
         m = self.convert_mat_np("m")
         f = self.convert_mat_np("f")
@@ -297,6 +296,27 @@ def get_preprocessed_combined_net_neg(index=[40,41]):
     neg_labels = dp.generate_labels(neg_sequeezed,0)
     return dp.combine_net_neg(pos_sequeezed,pos_labels,neg_sequeezed,neg_labels)
 
+"""
+get male or female 
+"""
+# type m or f 
+def get_preprocessed_male_female(type=None, index=[40,41]):
+    dp = Data_prepare() 
+    pos = [[0,3],[0,2],[0,1],[0,0]]
+    neg = [[1,3],[1,2],[1,1],[1,0]]
+    # netural vs postive 
+    # pos = [[0,0],[0,1],[1,2],[1,3],[2,0],[2,1],[2,2],[2,3]]
+    # neg = [[0,2],[0,3],[1,0],[1,1],[3,0],[3,1],[3,2],[3,3]] 
+    index=[40,41]
+    df = dp.convert_mat_np(type)
+    df = dp.remove_person(df,index)
+    pos_df = dp.get_pos_or_neg(df,pos)
+    neg_df = dp.get_pos_or_neg(df,neg)
+    pos_sequeezed = dp.squeeze_feature_size(pos_df)
+    neg_sequeezed = dp.squeeze_feature_size(neg_df)
+    pos_labels = dp.generate_labels(pos_sequeezed,1)
+    neg_labels = dp.generate_labels(neg_sequeezed,0)
+    return dp.combine_net_neg(pos_sequeezed,pos_labels,neg_sequeezed,neg_labels)
 """
 choose one stress group 
 """
