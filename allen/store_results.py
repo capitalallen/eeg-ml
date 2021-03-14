@@ -22,8 +22,8 @@ def write_to_json(file_name,avg_acc,coefs=None):
 def write_to_json_random(file_name,avg_acc,ids=None):
     data = {} 
     data['name'] = file_name 
-    data['ids'] = avg_acc
-    # data['coefs'] = coefs
+    data['avg_acc'] = avg_acc
+    data['ids'] = ids
     with open(file_name, 'w') as outfile:
         json.dump(data, outfile)
 # read_accuracy 
