@@ -16,12 +16,12 @@ def ex_train(x,y,path):
     accs,_ = train.leav_one_train() 
     write_to_json(path,accs)
 def ex():
-    folder = "./results/sleep_condition/"
+    folder = "./results/q13/"
     if not os.path.exists(folder):
         os.makedirs(folder)
     # define low and high array 
-    id_good = [0,1,5,17,20,21,23,24,28,37,38]
-    id_bad = [2,3,4,7,9,12,14,18,27,29,32] 
+    id_good = [2, 3, 5, 8, 9, 10, 11, 12, 16, 18, 22, 23, 24, 27, 28, 29, 30, 32, 33, 36, 37, 38, 39, 41]  
+    id_bad = [0, 4, 6, 7, 14, 15, 19, 20, 21, 25, 26, 31, 34]
     # get combined x & y
     x,y = get_preprocessed_combined_net_neg()
     # get selected x and selected y 
