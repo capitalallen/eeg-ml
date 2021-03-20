@@ -8,11 +8,13 @@ from multiprocessing import Process
 from multiprocessing import Pool
 import numpy as np 
 import os 
+from sklearn.ensemble import RandomForestClassifier
 """
 leave one out random 3 group 
 """
 def ex_train(x,y,path):
-    train = Train(x,y,0.1)
+    model = RandomForestClassifier(n_estimators=150) 
+    train = Train(x,y,0.1,model)
     accs,_ = train.leav_one_train() 
     write_to_json(path,accs)
 def ex():

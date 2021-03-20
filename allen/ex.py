@@ -94,17 +94,17 @@ if __name__ == "__main__":
     # ex_stress_leavone()
     # 0.1,50,100,1000
     # ex_stress_random()
-    rf =  RandomForestClassifier(n_estimators=150) 
-    log = model = Pipeline([
-                    ('clf', LogisticRegression(solver='saga', 
-                        max_iter=1000))
-                    ])
-    p = Process(target=ex_within, args=(rf,"rf"))
-    p.start()
+    # rf =  RandomForestClassifier(n_estimators=150) 
+    # log = model = Pipeline([
+    #                 ('clf', LogisticRegression(solver='saga', 
+    #                     max_iter=1000))
+    #                 ])
+    # p = Process(target=ex_within, args=(rf,"rf"))
+    # p.start()
 
-    p1 = Process(target=ex_within, args=(log,"logistic"))
-    p1.start()
-
+    # p1 = Process(target=ex_within, args=(log,"logistic"))
+    # p1.start()
+    
     # p2 = Process(target=ex_stress_leavone, args=(100,))
     # p2.start()
 

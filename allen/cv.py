@@ -109,7 +109,7 @@ class Train:
             acc,coefs=self.model_train(x_train,x_test,y_train,y_test,self.model)
             print(acc)
             all_accuracy.append(acc.tolist())
-            coefs_list.append(coefs.tolist())
+            coefs_list.append(0)
         return all_accuracy,coefs_list
 
     def delete_index(self,df,index):
